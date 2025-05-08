@@ -41,7 +41,7 @@ flight-finder-app/
 ### 🔧 Setup
 
 ```bash
-cd backend
+cd flight-finder-api
 ./mvnw spring-boot:run
 ```
 
@@ -55,7 +55,6 @@ By default, the server runs at: `http://localhost:8081`
 
 - Input field to type text
 - Live count of "flight" word occurrences
-- Debounced auto-fetch (no button needed)
 - Clean and responsive UI
 
 ### 🔧 Setup
@@ -76,7 +75,7 @@ The frontend runs at: `http://localhost:5173`
 **Request:**
 ```json
 {
-  "input": "flightflight"
+  "inputKeyword": "flightflight"
 }
 ```
 
@@ -97,6 +96,6 @@ The frontend runs at: `http://localhost:5173`
 
 ### Backend
 ```bash
-cd backend
+cd flight-finder-api
 ./mvnw test
 ```
