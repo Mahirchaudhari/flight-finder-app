@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./FlightChecker.css";
+import { checkFlightCount } from "./FlightCheckerAPI";
 
 function FlightChecker() {
   const [input, setInput] = useState("");
@@ -10,24 +11,20 @@ function FlightChecker() {
     setCount(null);
     setError(null);
 
-    try {
-      const response = await fetch("http://localhost:8081/api/flights/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputKeyword: input }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setCount(data.count);
-      } else {
-        setError(data.inputKeyword || "Error occurred");
+    if (/^[a-z\s]*$/.test(input)) {
+      try {
+        const response = await checkFlightCount(input);
+        const data = await response.json();
+        if (response.ok) {
+          setCount(data.count);
+        } else {
+          setError(data.inputKeyword || "Error occurred");
+        }
+      } catch (err) {
+        setError("Network error");
       }
-    } catch (err) {
-      setError("Network error");
+    } else {
+      setError("Only lowercase letters (a-z) are allowed.");
     }
   };
 
